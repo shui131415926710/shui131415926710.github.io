@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的小破站</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="bg-container">
+    <div class="starry-bg"></div>
+    <div class="user-img-bg" id="user-img-bg"></div>
+  </div>
+
+  <header class="ue5-header">
+    <div class="header-left">
+      <i class="fas fa-star"></i>
+      <h1>记录美好生活</h1>
+    </div>
+    <div class="header-right">
+      <span class="ue5-badge">动态背景</span>
+    </div>
+  </header>
+
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn" type="button" data-tab="image-tab">
+      <i class="fas fa-image"></i> 我的图片
+    </button>
+    <button class="tab-btn" type="button" data-tab="note-tab">
+      <i class="fas fa-book"></i> 我的记事本
+    </button>
+    <button class="tab-btn" type="button" data-tab="video-tab">
+      <i class="fas fa-video"></i> 我的视频
+    </button>
+    <button class="tab-btn" type="button" data-tab="music-tab">
+      <i class="fas fa-music"></i> 我的音乐
+    </button>
+    <button class="tab-btn" type="button" data-tab="timeline-tab">
+      <i class="fas fa-clock"></i> 我的时间线
+    </button>
+  </div>
+
+  <div class="container" id="main-container">
+    <p class="empty-tip">点击顶部标签，开始记录你的美好时光 ✨</p>
+  </div>
+
+  <div class="timeline-container" id="timeline-view">
+    <div class="timeline-header">
+      <h2><i class="fas fa-clock"></i> 我的记录时间轴</h2>
+      <button class="ue5-btn secondary-btn" type="button" id="back-btn">返回标签</button>
+    </div>
+    
+    <!-- 新增：日期搜索区域 -->
+    <div class="timeline-search">
+      <input type="date" class="ue5-input search-date" id="timeline-search-date" placeholder="选择要搜索的日期">
+      <button class="ue5-btn primary-btn search-btn" type="button" id="search-date-btn">
+        <i class="fas fa-search"></i> 搜索该日期记录
+      </button>
+      <button class="ue5-btn secondary-btn reset-btn" type="button" id="reset-search-btn">
+        <i class="fas fa-refresh"></i> 重置搜索
+      </button>
+    </div>
+    
+    <div class="timeline-content" id="timeline-items"></div>
+  </div>
+
+  <div class="modal" id="image-modal">
+    <div class="modal-content ue5-panel">
+      <div class="modal-header">
+        <h3><i class="fas fa-image"></i> 上传图片并添加备注</h3>
+        <span class="close-btn" data-modal="image-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="ue5-input" id="image-date">
+        <input type="text" class="ue5-input" id="image-desc" placeholder="输入图片描述...">
+        <label class="ue5-file-label">
+          <input type="file" id="image-upload" accept="image/*" class="ue5-file-input">
+          <span class="file-text">选择图片 <i class="fas fa-upload"></i></span>
+        </label>
+        <div id="image-preview" class="preview-box"></div>
+        <button class="ue5-btn primary-btn" type="button" id="save-image-btn">保存记录</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="note-modal">
+    <div class="modal-content ue5-panel">
+      <div class="modal-header">
+        <h3><i class="fas fa-book"></i> 新建笔记</h3>
+        <span class="close-btn" data-modal="note-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="ue5-input" id="note-date">
+        <input type="text" class="ue5-input" id="note-title" placeholder="输入笔记标题...">
+        <textarea class="ue5-input content-input" id="note-content" placeholder="输入笔记内容..."></textarea>
+        <button class="ue5-btn primary-btn" type="button" id="save-note-btn">保存笔记</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="video-modal">
+    <div class="modal-content ue5-panel">
+      <div class="modal-header">
+        <h3><i class="fas fa-video"></i> 上传视频并添加备注</h3>
+        <span class="close-btn" data-modal="video-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="ue5-input" id="video-date">
+        <input type="text" class="ue5-input" id="video-desc" placeholder="输入视频描述...">
+        <label class="ue5-file-label">
+          <input type="file" id="video-upload" accept="video/*" class="ue5-file-input">
+          <span class="file-text">选择视频 <i class="fas fa-upload"></i></span>
+        </label>
+        <div id="video-preview" class="preview-box"></div>
+        <button class="ue5-btn primary-btn" type="button" id="save-video-btn">保存记录</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="music-modal">
+    <div class="modal-content ue5-panel">
+      <div class="modal-header">
+        <h3><i class="fas fa-music"></i> 上传音乐并添加备注</h3>
+        <span class="close-btn" data-modal="music-modal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="ue5-input" id="music-date">
+        <input type="text" class="ue5-input" id="music-name" placeholder="输入音乐名称...">
+        <label class="ue5-file-label">
+          <input type="file" id="music-upload" accept="audio/*" class="ue5-file-input">
+          <span class="file-text">选择音乐 <i class="fas fa-upload"></i></span>
+        </label>
+        <div id="music-preview" class="preview-box"></div>
+        <button class="ue5-btn primary-btn" type="button" id="save-music-btn">保存记录</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
